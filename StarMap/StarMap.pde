@@ -13,6 +13,7 @@ void setup() {
 void draw() {
   background(0);
   drawGrid(10, 50);
+  drawStars();
 }
 
 
@@ -31,6 +32,12 @@ void printStars() {
   }
 }
 
+void drawStars() {
+  for(Star star : stars) {
+    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates();
+    ellipse(screenCoordinate.x, screenCoordinate.y, 20, 20);
+  }
+}
 
 void drawGrid(int gridLines, float border) {
   //Draw the border around grid.

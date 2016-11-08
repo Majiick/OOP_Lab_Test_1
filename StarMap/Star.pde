@@ -2,7 +2,7 @@ class Star {
   boolean habitable;
   String displayName;
   float distance;
-  Coordinate coordinates;
+  public Coordinate coordinates;
   float size;
   
   Star(TableRow tr) {
@@ -13,8 +13,8 @@ class Star {
     
     coordinates = new Coordinate();
     coordinates.x = tr.getFloat("Xg");
-    coordinates.x = tr.getFloat("Yg");
-    coordinates.x = tr.getFloat("Zg");
+    coordinates.y = tr.getFloat("Yg");
+    coordinates.z = tr.getFloat("Zg");
   }
   
   String toString() {
