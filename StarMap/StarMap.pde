@@ -5,7 +5,7 @@ ArrayList<Star> stars = new ArrayList<Star>();
 void setup() {
   size(800, 800);
   loadData("/data/HabHYG15ly.csv");
-  print(stars.size());
+  printStars();
 }
 
 
@@ -18,5 +18,11 @@ void loadData(String fileName) {
   
   for(TableRow tr : t.rows()) {
      stars.add(new Star(tr));
+  }
+}
+
+void printStars() {
+  for (Star star : stars) {
+    println(star);
   }
 }

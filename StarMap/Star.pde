@@ -16,4 +16,8 @@ class Star {
     coordinates.x = tr.getFloat("Yg");
     coordinates.x = tr.getFloat("Zg");
   }
+  
+  String toString() {
+    return displayName;
+  }
 }
