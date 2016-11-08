@@ -32,10 +32,34 @@ void printStars() {
   }
 }
 
+void drawCross(Coordinate c, float size) {
+  stroke(255,255,0);
+  
+  //horizontal stroke
+  line(c.x - size/2, c.y, c.x + size/2, c.y);
+  
+  //vertical stroke
+  line(c.x, c.y - size/2, c.x, c.y + size/2);
+}
+
+void drawCircle(Coordinate c, float size) {
+  stroke(255, 0, 0);
+  
+  noFill();
+  ellipse(c.x, c.y, size, size);
+}
+
+void drawLabel(Coordinate c, Coordinate offset, String text) {
+  text(text, c.x + offset.x, c.y + offset.y);
+}
+
 void drawStars() {
   for(Star star : stars) {
-    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(50.0f);
-    ellipse(screenCoordinate.x, screenCoordinate.y, 20, 20);
+    Coordinate screenCoordinate = star.coordinates.toGraphCoordinates(50.0f);
+    
+    drawCircle(screenCoordinate, star.size);
+    drawCross(screenCoordinate, 5);
+    drawLabel(screenCoordinate, new Coordinate(10, -5), star.name);
   }
 }
 

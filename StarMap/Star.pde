@@ -1,13 +1,13 @@
 class Star {
   boolean habitable;
-  String displayName;
+  String name;
   float distance;
   public Coordinate coordinates;
   float size;
   
   Star(TableRow tr) {
     habitable = tr.getInt("Hab?") == 1 ? true : false;
-    displayName = tr.getString("Display Name");
+    name = tr.getString("Display Name");
     distance = tr.getFloat("Distance");
     size = tr.getFloat("AbsMag");
     
@@ -18,6 +18,6 @@ class Star {
   }
   
   String toString() {
-    return displayName; //Make this more verbose later.
+    return name; //Make this more verbose later.
   }
 }
