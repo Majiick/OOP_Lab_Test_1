@@ -1,6 +1,6 @@
 class Star {
   boolean habitable;
-  String name;
+  public String name;
   float distance;
   public Coordinate coordinates;
   float size;

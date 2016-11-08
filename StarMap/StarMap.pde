@@ -59,7 +59,7 @@ void drawStars() {
     
     drawCircle(screenCoordinate, star.size);
     drawCross(screenCoordinate, 5);
-    drawLabel(screenCoordinate, new Coordinate(10, -5), star.name);
+    drawLabel(screenCoordinate, new Coordinate(star.size, -5), star.name);
   }
 }
 
@@ -89,12 +89,69 @@ void drawLabels(int gridLines, float border) {
   //draw x(vertical) labels.
   int label = -5;
   for(int i = 0; i < gridLines + 1; i++) {
-    text(label++, 10, gap * i + border);
+    text(label++, 30, gap * i + border);
   }
   
   //draw y(horizontal) labels.
   label = -5;
   for(int i = 0; i < gridLines + 1; i++) {
-    text(label++, gap * i + border, 10);
+    text(label++, gap * i + border, 40);
   }
+}
+
+Star firstClicked = null;
+//Star secondClicked = null;
+static final float MINIMUM_CLICK_PIXEL_DISTANCE = 20;
+
+void mouseClicked() {
+  //println("mouseclicked");
+  
+  for(Star star : stars) {
+    //float gap = (float)10 / ((800 - 50*2) / (float)10);
+    //println(gap);
+    //float marginSizeInParsecs = gap;
+    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(0.5f); //Need to calculate 0.5f here, not guess it.
+    
+    if(dist(mouseX, mouseY, screenCoordinate.x, screenCoordinate.y) < star.size + MINIMUM_CLICK_PIXEL_DISTANCE) {
+       //println(star.name);
+       //println(mouseX);
+       //println(mouseY);
+       //println(screenCoordinate.x);
+       //println(screenCoordinate.y);
+       firstClicked = star;
+       return;
+    }
+  }
+  
+  firstClicked = null;
+}
+
+
+void mouseDragged() {
+  if (firstClicked == null) {
+    return;
+  }
+  
+  Coordinate sc = firstClicked.coordinates.toScreenCoordinates(0.5f);
+  line(sc.x, sc.y, mouseX, mouseY);
+}
+
+void mouseReleased() {
+  if (firstClicked == null) {
+    return;
+  }
+  
+  for (Star star : stars) {
+    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(0.5f); //Need to calculate 0.5f here, not guess it.
+    
+    if(dist(mouseX, mouseY, screenCoordinate.x, screenCoordinate.y) < star.size + MINIMUM_CLICK_PIXEL_DISTANCE) {
+      Coordinate p1 = star.coordinates;
+      Coordinate p2 = firstClicked.coordinates;
+      
+      println("Distance from " + firstClicked.name + " to " + star.name + " is " + dist(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z) + " parsecs.");
+      break;
+    }
+  }
+  
+  firstClicked = null;
 }

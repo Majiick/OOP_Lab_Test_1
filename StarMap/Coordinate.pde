@@ -26,11 +26,14 @@ class Coordinate { //There's probably a built-in for this, but can't find it usi
     return c;
   }
   
-  public Coordinate toScreenCoordinates() {
+  //I'm really not proud of the method below ):
+  public Coordinate toScreenCoordinates(float marginSizeInParsecs) {
     Coordinate c = new Coordinate();
-    c.x = map(this.x, -5, 5, 0, height);
-    c.y = map(this.y, -5, 5, 0, height);
-    c.z = map(this.z, -5, 5, 0, height);
+    float rangeParsecs = 5.0f + marginSizeInParsecs;
+    
+    c.x = map(this.x, -rangeParsecs, rangeParsecs, 0, height);
+    c.y = map(this.y, -rangeParsecs, rangeParsecs, 0, height);
+    c.z = map(this.z, -rangeParsecs, rangeParsecs, 0, height);
     
     return c;
   }
