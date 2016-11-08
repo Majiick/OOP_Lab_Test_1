@@ -99,25 +99,18 @@ void drawLabels(int gridLines, float border) {
   }
 }
 
+
+//The code below is just bleh. Time constraints yo.
 Star firstClicked = null;
-//Star secondClicked = null;
 static final float MINIMUM_CLICK_PIXEL_DISTANCE = 20;
+static final float sizeOfOneParsecInPixels = ((800 - 50*2)) / 10;
+static final float marginSizeInParsecs = 50.0 / sizeOfOneParsecInPixels;
 
 void mouseClicked() {
-  //println("mouseclicked");
-  
   for(Star star : stars) {
-    //float gap = (float)10 / ((800 - 50*2) / (float)10);
-    //println(gap);
-    //float marginSizeInParsecs = gap;
-    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(0.5f); //Need to calculate 0.5f here, not guess it.
+    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(marginSizeInParsecs);
     
     if(dist(mouseX, mouseY, screenCoordinate.x, screenCoordinate.y) < star.size + MINIMUM_CLICK_PIXEL_DISTANCE) {
-       //println(star.name);
-       //println(mouseX);
-       //println(mouseY);
-       //println(screenCoordinate.x);
-       //println(screenCoordinate.y);
        firstClicked = star;
        return;
     }
@@ -132,9 +125,10 @@ void mouseDragged() {
     return;
   }
   
-  Coordinate sc = firstClicked.coordinates.toScreenCoordinates(0.5f);
+  Coordinate sc = firstClicked.coordinates.toScreenCoordinates(marginSizeInParsecs);
   line(sc.x, sc.y, mouseX, mouseY);
 }
+
 
 void mouseReleased() {
   if (firstClicked == null) {
@@ -142,7 +136,7 @@ void mouseReleased() {
   }
   
   for (Star star : stars) {
-    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(0.5f); //Need to calculate 0.5f here, not guess it.
+    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(marginSizeInParsecs);
     
     if(dist(mouseX, mouseY, screenCoordinate.x, screenCoordinate.y) < star.size + MINIMUM_CLICK_PIXEL_DISTANCE) {
       Coordinate p1 = star.coordinates;
