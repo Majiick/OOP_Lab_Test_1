@@ -11,7 +11,7 @@ void setup() {
 
 void draw() {
   background(0);
-  drawGrid(10);
+  drawGrid(10, 50);
 }
 
 void loadData(String fileName) {
@@ -28,24 +28,19 @@ void printStars() {
   }
 }
 
-void drawGrid(int gridLines) {
+void drawGrid(int gridLines, float border) {
   //Draw the border around grid.
-  stroke(255);
-  //line(50, 50, width - 50, 50);
-  //line(width - 50, 50, width - 50, height - 50);
-  //line(width - 50, height - 50, 50, height - 50);
-  //line(50, 50,  50, height - 50);
+  stroke(255, 0, 255);
 
-  float gap = ((800 - 50 - 50) / (float)gridLines);
-  print(gap);
+  float gap = ((800 - border*2) / (float)gridLines);
   
   //draw x(vertical bars)
   for(int i = 0; i < gridLines + 1; i++) {
-    line(gap * i + 50, height - 50, gap * i + 50, 50);
+    line(gap * i + border, height - border, gap * i + border, border);
   }
   
   //draw y(vertical bars)
   for(int i = 0; i < gridLines + 1; i++) {
-    line(50, gap * i + 50, width - 50, gap * i + 50);
+    line(border, gap * i + border, width - border, gap * i + border);
   }
 }
