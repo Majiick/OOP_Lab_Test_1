@@ -34,7 +34,7 @@ void printStars() {
 
 void drawStars() {
   for(Star star : stars) {
-    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates();
+    Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(50.0f);
     ellipse(screenCoordinate.x, screenCoordinate.y, 20, 20);
   }
 }

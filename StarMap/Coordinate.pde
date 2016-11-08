@@ -13,11 +13,11 @@ class Coordinate { //There's probably a built-in for this, but can't find it usi
     
   }
   
-  public Coordinate toScreenCoordinates() {
+  public Coordinate toScreenCoordinates(float marginSize) {
     Coordinate c = new Coordinate();
-    c.x = map(this.x, -5, 5, 0, height);
-    c.y = map(this.y, -5, 5, 0, height);
-    c.z = map(this.z, -5, 5, 0, height);
+    c.x = map(this.x, -5, 5, marginSize, height - marginSize);
+    c.y = map(this.y, -5, 5, marginSize, height - marginSize);
+    c.z = map(this.z, -5, 5, marginSize, height - marginSize);
     
     return c;
   }
