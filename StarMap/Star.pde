@@ -18,6 +18,6 @@ class Star {
   }
   
   String toString() {
-    return displayName;
+    return displayName; //Make this more verbose later.
   }
 }
