@@ -32,6 +32,7 @@ void printStars() {
   }
 }
 
+
 void drawCross(Coordinate c, float size) {
   stroke(255,255,0);
   
@@ -42,6 +43,7 @@ void drawCross(Coordinate c, float size) {
   line(c.x, c.y - size/2, c.x, c.y + size/2);
 }
 
+
 void drawCircle(Coordinate c, float size) {
   stroke(255, 0, 0);
   
@@ -49,9 +51,11 @@ void drawCircle(Coordinate c, float size) {
   ellipse(c.x, c.y, size, size);
 }
 
+
 void drawLabel(Coordinate c, Coordinate offset, String text) {
   text(text, c.x + offset.x, c.y + offset.y);
 }
+
 
 void drawStars() {
   for(Star star : stars) {
@@ -62,6 +66,7 @@ void drawStars() {
     drawLabel(screenCoordinate, new Coordinate(star.size, -5), star.name);
   }
 }
+
 
 void drawGrid(int gridLines, float border) {
   //Draw the border around grid.
@@ -101,8 +106,8 @@ void drawLabels(int gridLines, float border) {
 
 
 //The code below is just bleh. Time constraints yo.
-Star firstClicked = null;
-static final float MINIMUM_CLICK_PIXEL_DISTANCE = 20;
+Star clickedStar = null;
+static final float MINIMUM_CLICK_PIXEL_DISTANCE = 20; //This is to make the area you can click on bigger, my screen resolution is big so 800x800 is tiny for me.
 static final float sizeOfOneParsecInPixels = ((800 - 50*2)) / 10;
 static final float marginSizeInParsecs = 50.0 / sizeOfOneParsecInPixels;
 
@@ -111,27 +116,27 @@ void mouseClicked() {
     Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(marginSizeInParsecs);
     
     if(dist(mouseX, mouseY, screenCoordinate.x, screenCoordinate.y) < star.size + MINIMUM_CLICK_PIXEL_DISTANCE) {
-       firstClicked = star;
+       clickedStar = star;
        return;
     }
   }
   
-  firstClicked = null;
+  clickedStar = null;
 }
 
 
 void mouseDragged() {
-  if (firstClicked == null) {
+  if (clickedStar == null) {
     return;
   }
   
-  Coordinate sc = firstClicked.coordinates.toScreenCoordinates(marginSizeInParsecs);
+  Coordinate sc = clickedStar.coordinates.toScreenCoordinates(marginSizeInParsecs);
   line(sc.x, sc.y, mouseX, mouseY);
 }
 
 
 void mouseReleased() {
-  if (firstClicked == null) {
+  if (clickedStar == null) { //If there was no star clicked, don't do anything.
     return;
   }
   
@@ -140,12 +145,12 @@ void mouseReleased() {
     
     if(dist(mouseX, mouseY, screenCoordinate.x, screenCoordinate.y) < star.size + MINIMUM_CLICK_PIXEL_DISTANCE) {
       Coordinate p1 = star.coordinates;
-      Coordinate p2 = firstClicked.coordinates;
+      Coordinate p2 = clickedStar.coordinates;
       
-      println("Distance from " + firstClicked.name + " to " + star.name + " is " + dist(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z) + " parsecs.");
+      println("Distance from " + clickedStar.name + " to " + star.name + " is " + dist(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z) + " parsecs.");
       break;
     }
   }
   
-  firstClicked = null;
+  clickedStar = null;
 }
