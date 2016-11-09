@@ -111,6 +111,7 @@ static final float MINIMUM_CLICK_PIXEL_DISTANCE = 20; //This is to make the area
 static final float sizeOfOneParsecInPixels = ((800 - 50*2)) / 10;
 static final float marginSizeInParsecs = 50.0 / sizeOfOneParsecInPixels;
 
+//***********************************I was playing around it today and it's a little bit bugged, you need to double click and on the second click you need to hold and drag and it works.
 void mouseClicked() {
   for(Star star : stars) {
     Coordinate screenCoordinate = star.coordinates.toScreenCoordinates(marginSizeInParsecs);
